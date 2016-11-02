@@ -1,15 +1,17 @@
 import React, { PropTypes } from 'react'
 import { View, StyleSheet, TouchableHighlight, Image, Platform } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon from '../icons/Icon'
 import Text from '../text/Text'
 import colors from '../config/colors'
 import fonts from '../config/fonts'
+import normalize from '../helpers/normalizeText'
+
 let styles
 
 const ListItem = ({
   onPress,
   title,
-  icon,
+  leftIcon,
   rightIcon,
   avatar,
   avatarStyle,
@@ -39,12 +41,12 @@ const ListItem = ({
       style={[styles.container, containerStyle && containerStyle]}>
       <View style={[styles.wrapper, wrapperStyle && wrapperStyle]}>
         {
-          icon && icon.name && (
+          leftIcon && leftIcon.name && (
             <Icon
-              size={28}
-              style={[styles.icon, icon.style && icon.style]}
-              name={icon.name}
-              color={icon.color || colors.grey4}
+              type={leftIcon.type}
+              iconStyle={[styles.icon, leftIcon.style && leftIcon.style]}
+              name={leftIcon.name}
+              color={leftIcon.color || colors.grey4}
             />
           )
         }
@@ -64,14 +66,14 @@ const ListItem = ({
             style={[
               styles.title,
               titleStyle && titleStyle,
-              !icon && {marginLeft: 10},
+              !leftIcon && {marginLeft: 10},
               fontFamily && {fontFamily}
             ]}>{title}</Text>
           {subtitle && (
             <Text
               style={[
                 styles.subtitle,
-                !icon && {marginLeft: 10},
+                !leftIcon && {marginLeft: 10},
                 subtitleStyle && subtitleStyle,
                 fontFamily && {fontFamily}
               ]}>{subtitle}</Text>
@@ -81,10 +83,11 @@ const ListItem = ({
           onPress && !hideChevron && (
             <View style={styles.chevronContainer}>
               <Icon
+                type={rightIcon.type}
                 style={styles.chevron}
                 size={28}
-                name={rightIcon}
-                color={chevronColor} />
+                name={rightIcon.name}
+                color={rightIcon.color || chevronColor} />
             </View>
           )
         }
@@ -96,7 +99,7 @@ const ListItem = ({
 ListItem.defaultProps = {
   underlayColor: 'white',
   chevronColor: colors.grey4,
-  rightIcon: 'chevron-right',
+  rightIcon: {name: 'chevron-right'},
   hideChevron: false,
   roundAvatar: false
 }
@@ -106,7 +109,7 @@ ListItem.propTypes = {
   avatar: PropTypes.any,
   icon: PropTypes.any,
   onPress: PropTypes.func,
-  rightIcon: PropTypes.string,
+  rightIcon: PropTypes.object,
   underlayColor: PropTypes.string,
   subtitle: PropTypes.string,
   subtitleStyle: PropTypes.any,
@@ -133,16 +136,15 @@ styles = StyleSheet.create({
     flexDirection: 'row'
   },
   icon: {
-    marginRight: 10
+    marginRight: 8
   },
   title: {
-    fontSize: 15,
-    color: colors.grey1,
-    marginTop: -2
+    fontSize: normalize(14),
+    color: colors.grey1
   },
   subtitle: {
     color: colors.grey3,
-    fontSize: 12,
+    fontSize: normalize(12),
     marginTop: 1,
     ...Platform.select({
       ios: {

@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react'
-import { TouchableHighlight, StyleSheet, View, Platform } from 'react-native'
+import { TouchableWithoutFeedback, TouchableNativeFeedback, TouchableOpacity, TouchableHighlight, StyleSheet, View, Platform, ActivityIndicator } from 'react-native'
 import colors from '../config/colors'
 import Text from '../text/Text'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import getIconType from '../helpers/getIconType'
+import normalize from '../helpers/normalizeText'
 
 let styles = {}
 
@@ -12,10 +13,29 @@ const log = () => {
 }
 
 const Button = ({
+  Component,
+  disabled,
+  loading,
+  loadingRight,
+  activityIndicatorStyle,
   buttonStyle,
   borderRadius,
   title,
   onPress,
+  delayLongPress,
+  delayPressIn,
+  delayPressOut,
+  onLayout,
+  onLongPress,
+  onPressIn,
+  onPressOut,
+  activeOpacity,
+  onHideUnderlay,
+  onShowUnderlay,
+  background,
+  SelectableBackground,
+  SelectableBackgroundBorderless,
+  Ripple,
   icon,
   secondary,
   secondary2,
@@ -31,7 +51,6 @@ const Button = ({
   textStyle,
   small,
   iconRight,
-  disabled,
   fontWeight,
   fontFamily}) => {
   let iconElement
@@ -45,7 +64,7 @@ const Button = ({
     iconElement = (
       <Icon
         color={icon.color || 'white'}
-        size={icon.size || small ? 18 : 26}
+        size={icon.size || (small ? 18 : 26)}
         style={[
           iconRight ? styles.iconRight : styles.icon,
           icon.style && icon.style
@@ -53,8 +72,42 @@ const Button = ({
         name={icon.name} />
     )
   }
+  let loadingElement;
+  if(loading){
+    loadingElement = (
+      <ActivityIndicator
+        animating={true}
+        style={[styles.activityIndicatorStyle, activityIndicatorStyle]}
+        color={color || "white"}
+        size={small && "small" || "large"}
+      />
+    )
+  }
+  if (!Component && Platform.OS === 'ios') {
+    Component = TouchableHighlight
+  }
+  if (!Component && Platform.OS === 'android') {
+    Component = TouchableNativeFeedback
+  }
+  if (!Component) {
+    Component = TouchableHighlight
+  }
   return (
-    <TouchableHighlight
+    <Component
+      delayLongPress={delayLongPress}
+      delayPressIn={delayPressIn}
+      delayPressOut={delayPressOut}
+      onLayout={onLayout}
+      onLongPress={onLongPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+      activeOpacity={activeOpacity}
+      onHideUnderlay={onHideUnderlay}
+      onShowUnderlay={onShowUnderlay}
+      background={background}
+      SelectableBackground={SelectableBackground}
+      SelectableBackgroundBorderless={SelectableBackgroundBorderless}
+      Ripple={Ripple}
       underlayColor={underlayColor || 'transparent'}
       onPress={onPress || log}
       disabled={disabled || false}>
@@ -66,15 +119,19 @@ const Button = ({
           secondary3 && {backgroundColor: colors.secondary3},
           primary1 && {backgroundColor: colors.primary1},
           primary2 && {backgroundColor: colors.primary2},
-          backgroundColor && {backgroundColor: disabled ? colors.disabled : backgroundColor},
+          backgroundColor && {backgroundColor: backgroundColor},
           borderRadius && {borderRadius},
           buttonStyle && buttonStyle,
           raised && styles.raised,
-          small && styles.small
+          small && styles.small,
+          disabled && {backgroundColor: colors.disabled}
         ]}
         >
         {
           icon && !iconRight && iconElement
+        }
+        {
+          loading && !loadingRight && loadingElement
         }
         <Text
           style={[
@@ -89,10 +146,13 @@ const Button = ({
           {title}
         </Text>
         {
+          loading && loadingRight && loadingElement
+        }
+        {
           icon && iconRight && iconElement
         }
       </View>
-    </TouchableHighlight>
+    </Component>
   )
 }
 
@@ -113,7 +173,10 @@ Button.propTypes = {
   underlayColor: PropTypes.string,
   raised: PropTypes.bool,
   textStyle: PropTypes.any,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  loading: PropTypes.bool,
+  activityIndicatorStyle: PropTypes.any,
+  loadingRight: PropTypes.bool
 }
 
 styles = StyleSheet.create({
@@ -128,7 +191,7 @@ styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: 18
+    fontSize: normalize(18)
   },
   icon: {
     marginRight: 10
@@ -140,7 +203,11 @@ styles = StyleSheet.create({
     padding: 12
   },
   smallFont: {
-    fontSize: 14
+    fontSize: normalize(14)
+  },
+  activityIndicatorStyle: {
+    marginHorizontal: 10,
+    height: 0
   },
   raised: {
     ...Platform.select({

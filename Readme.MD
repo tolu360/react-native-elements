@@ -5,29 +5,27 @@
 
 ## Get Started
 
-*If you are using Exponent, you can run* `npm i react-native-elements github:exponentjs/react-native-vector-icons --save` *and skip to step 4.*
+*If you are using Exponent, you can run* `npm i react-native-elements github:exponentjs/react-native-vector-icons --save` *and skip to step 3.*
 
 #### Step 1
 
-Install rnpm if not already installed on your machine
-
-`npm install rnpm -g`
-
-#### Step 2
-
 Install react-native-vector-icons (if you do not already have it)
 
-`npm i react-native-vector-icons --save && rnpm link react-native-vector-icons`
+`npm i react-native-vector-icons --save && react-native link react-native-vector-icons`
 
 *If you have any issues with icons not working or installation of React Native Vector Icons, check out their installation guide [here](https://github.com/oblador/react-native-vector-icons#installation)*
 
-#### Step 3
+#### Step 2
 
 Install React Native Elements
 
 `npm i react-native-elements --save`
 
-#### Step 4
+or
+
+`yarn add react-native-elements`
+
+#### Step 3
 
 Start using components
 
@@ -136,8 +134,11 @@ import { Button } from 'react-native-elements'
 
 #### Button props
 
+> Also recevies all TouchableWithoutFeedback props
+
 | prop | default | type | description |
 | ---- | ---- | ----| ---- |
+| Component | TouchableHighlight (iOS), TouchableNativeFeedback (android) | React Native Component | Specify other component such as TouchableOpacity or other (optional) |
 | buttonStyle | none | object (style) | add additional styling for button component (optional) |
 | title | none | string | button title (required) |
 | small | false | boolean | makes button small |
@@ -230,6 +231,8 @@ import { SocialIcon } from 'react-native-elements'
 | fontFamily | System font bold (iOS), Roboto-Black (android) | string | specify different font family (optional) |
 | fontWeight | bold (ios), black(android) | string | specify font weight of title if set as a button with a title |
 | fontStyle | none | object (style) | specify text styling (optional) |
+| disabled | false | boolean | disable button (optional) |
+| loading | false | boolean | shows loading indicator (optional) |
 
 
 ## Icons & Icon Buttons
@@ -239,6 +242,8 @@ import { SocialIcon } from 'react-native-elements'
 Icons take the name of a [material icon](https://design.google.com/icons/) as a prop.
 
 > You can override Material icons with one of the following: [font-awesome](http://fontawesome.io/icons/), [octicon](https://octicons.github.com/), [ionicon](http://ionicons.com/), [foundation](http://zurb.com/playground/foundation-icon-fonts-3), [evilicon](http://evil-icons.io/), [zocial](http://weloveiconfonts.com/), or [entypo](http://www.entypo.com/) by providing a type prop.
+
+> Hint: use **reverse** to make your icon look like a button
 
 ```js
 
@@ -353,7 +358,7 @@ const list = [
       <ListItem
         key={i}
         title={item.title}
-        icon={{name: item.icon}}
+        leftIcon={{name: item.icon}}
       />
     ))
   }
@@ -421,9 +426,9 @@ render () {
 | component | View or TouchableHighlight if onPress method is added as prop | React Native element | replace element with custom element (optional) |
 | containerStyle | none | object (style) | additional main container styling (optional) |
 | hideChevron | false | boolean | set if you do not want a chevron (optional) |
-| icon | none | object {name, color, style} | icon configuration for left icon (optional) |
+| leftIcon | none | object {name, color, style, type} (type defaults to material icons) | icon configuration for left icon (optional) |
+| rightIcon | {name: 'chevron-right'} | object {name, color, style, type} (type defaults to material icons) | right icon (optional), will only show up if there is an onPress method attached ([material icon name](https://design.google.com/icons/)) |
 | onPress | none | function | onPress method for link (optional) |
-| rightIcon | chevron | string | right icon (optional) ([material icon name](https://design.google.com/icons/)) |
 | roundAvatar | false | boolan | make left avatar round |
 | subtitle | none | string | subtitle text (optional) |
 | subtitleStyle | none | object (style) | additional subtitle styling (optional ) |
@@ -851,6 +856,7 @@ import { PricingCard } from 'react-native-elements'
 | color | none | string | color scheme for button & title (required) |
 | info | none | array of strings | pricing information (optional) |
 | button | none | object {title, icon, buttonStyle} | button information (required) |
+| onButtonPress | none | any | function to be run when button is pressed |
 | containerStyle | inherited styling | object (style) | outer component styling (optional) |
 | wrapperStyle | inherited styling | object (style) | inner wrapper component styling (optional) |
 | titleFont | System font (font weight 800) (iOS), Roboto-Black (android) | string | specify title font family |

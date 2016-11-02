@@ -72,8 +72,8 @@ Icon.propTypes = {
   underlayColor: PropTypes.string,
   reverse: PropTypes.bool,
   raised: PropTypes.bool,
-  containerStyle: PropTypes.object,
-  iconStyle: PropTypes.object,
+  containerStyle: PropTypes.any,
+  iconStyle: PropTypes.any,
   onPress: PropTypes.func,
   reverseColor: PropTypes.string
 }
