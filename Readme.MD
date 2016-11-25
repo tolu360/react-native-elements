@@ -1,11 +1,11 @@
-![React Native Elements](http://i.imgur.com/HU4S78V.png)
+![React Native Elements](http://i.imgur.com/Ok2KaWq.png)
 ## Cross Platform React Native UI Toolkit
 
 ![React Native UI Toolkit](http://i.imgur.com/UXrGTeG.png)
 
 ## Get Started
 
-*If you are using Exponent, you can run* `npm i react-native-elements github:exponentjs/react-native-vector-icons --save` *and skip to step 3.*
+*If you are using Exponent, you can run `npm i react-native-elements --save` and skip to step 3.*
 
 #### Step 1
 
@@ -42,8 +42,8 @@ import {
 ```
 ## Included
 - [x] [Buttons](https://github.com/react-native-community/react-native-elements#buttons)
-- [x] [Icons](https://github.com/react-native-community/react-native-elements#icons)
 - [x] [Social Icons / Buttons](https://github.com/react-native-community/react-native-elements#social-icons--buttons)
+- [x] [Icons](https://github.com/react-native-community/react-native-elements#icons--icon-buttons)
 - [x] [Side Menu](https://github.com/react-native-community/react-native-elements#sidemenu)
 - [x] [Form Elements](https://github.com/react-native-community/react-native-elements#forms)
 - [x] [Search Bar](https://github.com/react-native-community/react-native-elements#search-bar)
@@ -58,7 +58,6 @@ import {
 
 ## Roadmap
 - [ ] Add radio buttons
-- [ ] Add grid component
 - [ ] Searchable Drop Down similar to [Bootstrap-3-Typehead](https://github.com/bassjobsen/Bootstrap-3-Typeahead)
 - [ ] [Swipeable List Item component](https://github.com/jemise111/react-native-swipe-list-view)
 - [ ] Add icons to TextInputs
@@ -115,18 +114,18 @@ import { Button } from 'react-native-elements'
   title='BUTTON WITH ICON' />
 
 <Button
-  small
+  large
   iconRight
   icon={{name: 'code'}}
-  title='SMALL WITH RIGHT ICON' />
+  title='LARGE WITH RIGHT ICON' />
 
 <Button
-  small
+  large
   icon={{name: 'envira', type: 'font-awesome'}}
-  title='SMALL WITH RIGHT ICON' />
+  title='LARGE WITH RIGHT ICON' />
 
 <Button
-  small
+  large
   icon={{name: 'squirrel', type: 'octicon', buttonStyle: styles.someButtonStyle }}
   title='OCTICON' />
 
@@ -141,7 +140,7 @@ import { Button } from 'react-native-elements'
 | Component | TouchableHighlight (iOS), TouchableNativeFeedback (android) | React Native Component | Specify other component such as TouchableOpacity or other (optional) |
 | buttonStyle | none | object (style) | add additional styling for button component (optional) |
 | title | none | string | button title (required) |
-| small | false | boolean | makes button small |
+| large | false | boolean | makes button large |
 | fontFamily | System font (iOS), Roboto (android) | string | specify different font family |
 | fontWeight | none | string | specify font weight for title (optional) |
 | iconRight | false | boolean | moves icon to right of title |
@@ -413,7 +412,7 @@ render () {
 
 | prop | default | type | description |
 | ---- | ---- | ----| ---- |
-| containerStyle | none | object (style) | style the list container |
+| containerStyle | marginTop: 20, borderTopWidth: 1, borderBottomWidth: 1, borderBottomColor: #cbd2d9 | object (style) | style the list container |
 
 
 #### ListItem props
@@ -429,14 +428,18 @@ render () {
 | leftIcon | none | object {name, color, style, type} (type defaults to material icons) | icon configuration for left icon (optional) |
 | rightIcon | {name: 'chevron-right'} | object {name, color, style, type} (type defaults to material icons) | right icon (optional), will only show up if there is an onPress method attached ([material icon name](https://design.google.com/icons/)) |
 | onPress | none | function | onPress method for link (optional) |
-| roundAvatar | false | boolan | make left avatar round |
+| roundAvatar | false | boolean | make left avatar round |
 | subtitle | none | string | subtitle text (optional) |
+| subtitleContainerStyle | none | style (object) | provide styling for subtitle container |
 | subtitleStyle | none | object (style) | additional subtitle styling (optional ) |
 | title | none | string | main title for list item (required) |
 | titleStyle | none | object (style) | additional title styling (optional) |
 | wrapperStyle | none | object (style) | additional wrapper styling (optional) |
 | underlayColor | white | string | define underlay color for TouchableHighlight (optional) |
 | fontFamily | HelevticaNeue (iOS), Roboto (android) | string | specify different font family |
+| rightTitle | none | string | provide a rightTitle to have a title show up on the right side of the button, will override any icon on the right |
+| rightTitleContainerStyle | flex: 1, alignItems: 'flex-end', justifyContent: 'center' | object (style) | style the outer container of the rightTitle text |
+| rightTitleStyle | marginRight: 5, color: '#bdc6cf' | object (style) | style the text of the right text |
 
 
 ## SideMenu
@@ -541,6 +544,7 @@ import { SearchBar } from 'react-native-elements'
 | round | false | boolean | change TextInput styling to rounded corners |
 | containerRef | none | ref | ref for TextInput conainer |
 | textInputRef | none | ref | ref for TextInput |
+| focus | none | function | call focus on the textinput(optional), eg `this.refs.someInputRef.focus()` |
 
 
 ## Cross Platform Tab Bar
@@ -745,6 +749,7 @@ import { FormLabel, FormInput } from 'react-native-elements'
 | inputStyle | none | object (style) | TextInput styling (optional) |
 | textInputRef | none | ref | get ref of TextInput |
 | containerRef | none | ref | get ref of TextInput container |
+| focus | none | function | call focus on the textinput(optional), eg `this.refs.someInputRef.focus()` |
 
 #### FormLabel props
 
@@ -754,6 +759,21 @@ import { FormLabel, FormInput } from 'react-native-elements'
 | labelStyle | none | object (style) | additional label styling (optional) |
 | fontFamily | System font bold (iOS), Roboto-Bold (android) | string | specify different font family |
 
+#### Using FormInput refs
+
+```
+<FormInput
+  ref='forminput'
+  textInputRef='email'
+  ...
+/>
+```
+You should be able to access the refs like this
+
+```
+this.refs.forminput.refs.email
+
+```
 
 ## Card
 
@@ -805,7 +825,6 @@ import { Card, ListItem, Button } from 'react-native-elements'
     The idea with React Native Elements is more about component structure than actual design.
   </Text>
   <Button
-    small
     icon={{name: 'code'}}
     backgroundColor='#03A9F4'
     fontFamily='Lato'

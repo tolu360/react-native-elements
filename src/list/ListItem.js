@@ -25,7 +25,11 @@ const ListItem = ({
   chevronColor,
   roundAvatar,
   component,
-  fontFamily
+  fontFamily,
+  rightTitle,
+  rightTitleContainerStyle,
+  rightTitleStyle,
+  subtitleContainerStyle,
 }) => {
   let Component = onPress ? TouchableHighlight : View
   if (component) {
@@ -70,17 +74,19 @@ const ListItem = ({
               fontFamily && {fontFamily}
             ]}>{title}</Text>
           {subtitle && (
-            <Text
-              style={[
-                styles.subtitle,
-                !leftIcon && {marginLeft: 10},
-                subtitleStyle && subtitleStyle,
-                fontFamily && {fontFamily}
-              ]}>{subtitle}</Text>
+            <View style={subtitleContainerStyle}>
+              <Text
+                style={[
+                  styles.subtitle,
+                  !leftIcon && {marginLeft: 10},
+                  subtitleStyle && subtitleStyle,
+                  fontFamily && {fontFamily}
+                ]}>{subtitle}</Text>
+            </View>
           )}
         </View>
         {
-          onPress && !hideChevron && (
+          !hideChevron && !rightTitle && (
             <View style={styles.chevronContainer}>
               <Icon
                 type={rightIcon.type}
@@ -88,6 +94,13 @@ const ListItem = ({
                 size={28}
                 name={rightIcon.name}
                 color={rightIcon.color || chevronColor} />
+            </View>
+          )
+        }
+        {
+          rightTitle && (
+            <View style={[styles.rightTitleContainer, rightTitleContainerStyle]}>
+              <Text style={[styles.rightTitleStyle, rightTitleStyle]}>{rightTitle}</Text>
             </View>
           )
         }
@@ -156,12 +169,22 @@ styles = StyleSheet.create({
     })
   },
   titleContainer: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flex: 1,
   },
   chevronContainer: {
+    flex: 0.15,
+    alignItems: 'flex-end',
+    justifyContent: 'center'
+  },
+  rightTitleContainer: {
     flex: 1,
     alignItems: 'flex-end',
     justifyContent: 'center'
+  },
+  rightTitleStyle: {
+    marginRight: 5,
+    color: colors.grey4
   },
   chevron: {
   }

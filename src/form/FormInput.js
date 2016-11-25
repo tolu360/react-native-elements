@@ -6,6 +6,14 @@ import normalize from '../helpers/normalizeText'
 let styles = {}
 
 class FormInput extends Component {
+  focus() {
+    const ref = this.props.textInputRef
+    this.refs[ref].focus()
+  }
+  blur() {
+    const ref = this.props.textInputRef
+    this.refs[ref].blur()
+  }
   render () {
   const {
     containerStyle,
@@ -48,7 +56,7 @@ class FormInput extends Component {
     onKeyPress,
     selectionState,
     textInputRef,
-    containerRef
+    containerRef,
   } = this.props
   return (
     <View ref={containerRef} style={[styles.container, containerStyle && containerStyle]}>
