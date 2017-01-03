@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { View, StyleSheet, TouchableHighlight, Image, Platform } from 'react-native'
+import Badge from '../badge/badge'
 import Icon from '../icons/Icon'
 import Text from '../text/Text'
 import colors from '../config/colors'
@@ -30,8 +31,13 @@ const ListItem = ({
   rightTitleContainerStyle,
   rightTitleStyle,
   subtitleContainerStyle,
+  badge,
+  badgeContainerStyle,
+  badgeTextStyle,
+  label,
+  onLongPress,
 }) => {
-  let Component = onPress ? TouchableHighlight : View
+  let Component = onPress || onLongPress ? TouchableHighlight : View
   if (component) {
     Component = component
   }
@@ -40,6 +46,7 @@ const ListItem = ({
   }
   return (
     <Component
+      onLongPress={onLongPress}
       onPress={onPress}
       underlayColor={underlayColor}
       style={[styles.container, containerStyle && containerStyle]}>
@@ -73,7 +80,7 @@ const ListItem = ({
               !leftIcon && {marginLeft: 10},
               fontFamily && {fontFamily}
             ]}>{title}</Text>
-          {subtitle && (
+          {subtitle && (subtitle !== '') && (
             <View style={subtitleContainerStyle}>
               <Text
                 style={[
@@ -93,12 +100,22 @@ const ListItem = ({
                 style={styles.chevron}
                 size={28}
                 name={rightIcon.name}
-                color={rightIcon.color || chevronColor} />
+                color={rightIcon.color || chevronColor}
+              />
             </View>
           )
         }
         {
-          rightTitle && (
+          badge && (
+            <Badge
+              badge={badge}
+            />)
+        }
+        {
+          label && label
+        }
+        {
+          rightTitle && (rightTitle !== '') && (
             <View style={[styles.rightTitleContainer, rightTitleContainerStyle]}>
               <Text style={[styles.rightTitleStyle, rightTitleStyle]}>{rightTitle}</Text>
             </View>
@@ -131,7 +148,8 @@ ListItem.propTypes = {
   titleStyle: PropTypes.any,
   hideChevron: PropTypes.bool,
   chevronColor: PropTypes.string,
-  roundAvatar: PropTypes.bool
+  roundAvatar: PropTypes.bool,
+  badge: PropTypes.any,
 }
 
 styles = StyleSheet.create({

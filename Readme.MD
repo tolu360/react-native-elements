@@ -98,7 +98,7 @@ To override the fontFamily in any element, simply provide a fontFamily prop:
 ## Buttons
 Buttons take a title and an optional [material icon name](https://design.google.com/icons/), as well as the props below.
 
-> You can override Material icons with one of the following: zocial, font-awesome, octicon, ionicon, foundation, evilicon, or entypo by providing an icon.type as a prop.
+> You can override Material icons with one of the following: simple-line-icon, zocial, font-awesome, octicon, ionicon, foundation, evilicon, or entypo by providing an icon.type as a prop.
 
 ![Buttons](http://i.imgur.com/CVf1xbr.png)
 
@@ -145,7 +145,8 @@ import { Button } from 'react-native-elements'
 | fontWeight | none | string | specify font weight for title (optional) |
 | iconRight | false | boolean | moves icon to right of title |
 | onPress | none | function | onPress method (required) |
-| icon | {color: 'white'} | object {name: string, color: string, size: number, type: string (default is material, or choose one of zocial, font-awesome, octicon, ionicon, foundation, evilicon, or entypo), style: object(style)} | icon configuration (optional) |
+| onLongPress | none | function | onLongPress method (optional) |
+| icon | {color: 'white'} | object {name: string, color: string, size: number, type: string (default is material, or choose one of simple-line-icon, zocial, font-awesome, octicon, ionicon, foundation, evilicon, or entypo), style: object(style)} | icon configuration (optional) |
 | backgroundColor | #397af8 | string (color) | background color of button (optional) |
 | borderRadius | none | number | adds border radius to card (optional) |
 | color | white | string(color) | font color (optional) |
@@ -221,6 +222,7 @@ import { SocialIcon } from 'react-native-elements'
 | raised | true | boolean | raised adds a drop shadow, set to false to remove |
 | button | false | boolean | creates button (optional) |
 | onPress | none | function | onPress method (optional) |
+| onLongPress | none | function | onLongPress method (optional) |
 | light | false | boolean | reverses icon color scheme, setting background to white and icon to primary color |
 | iconStyle | none | object (style) | extra styling for icon component (optional) |
 | style | none | object (style) | button styling (optional) |
@@ -240,7 +242,7 @@ import { SocialIcon } from 'react-native-elements'
 
 Icons take the name of a [material icon](https://design.google.com/icons/) as a prop.
 
-> You can override Material icons with one of the following: [font-awesome](http://fontawesome.io/icons/), [octicon](https://octicons.github.com/), [ionicon](http://ionicons.com/), [foundation](http://zurb.com/playground/foundation-icon-fonts-3), [evilicon](http://evil-icons.io/), [zocial](http://weloveiconfonts.com/), or [entypo](http://www.entypo.com/) by providing a type prop.
+> You can override Material icons with one of the following: [font-awesome](http://fontawesome.io/icons/), [octicon](https://octicons.github.com/), [ionicon](http://ionicons.com/), [foundation](http://zurb.com/playground/foundation-icon-fonts-3), [evilicon](http://evil-icons.io/), [simple line icons](http://simplelineicons.com/), [zocial](http://weloveiconfonts.com/), or [entypo](http://www.entypo.com/) by providing a type prop.
 
 > Hint: use **reverse** to make your icon look like a button
 
@@ -282,12 +284,13 @@ import { Icon } from 'react-native-elements'
 | prop | default | type | description |
 | ---- | ---- | ----| ---- |
 | name | none | string | name of icon (required) |
-| type | material | string | type (defaults to material, options are `zocial, font-awesome, octicon, ionicon, foundation, evilicon, or entypo`) |
+| type | material | string | type (defaults to material, options are `zocial, font-awesome, octicon, ionicon, foundation, evilicon, simple-line-icon, or entypo`) |
 | size | 26 | number | size of icon (optional) |
 | color | black | string | color of icon (optional) |
 | iconStyle | inherited style | object (style) | additional styling to icon (optional) |
 | component | View if no onPress method is defined, TouchableHighlight if onPress method is defined | React Native component | update React Native Component (optional) |
 | onPress | none | function | onPress method for button (optional) |
+| onLongPress | none | function | onLongPress method for button (optional) |
 | underlayColor | icon color | string | underlayColor for press event |
 | reverse | false | boolean | reverses color scheme (optional) |
 | raised | false | boolean | adds box shadow to button (optional) |
@@ -428,6 +431,7 @@ render () {
 | leftIcon | none | object {name, color, style, type} (type defaults to material icons) | icon configuration for left icon (optional) |
 | rightIcon | {name: 'chevron-right'} | object {name, color, style, type} (type defaults to material icons) | right icon (optional), will only show up if there is an onPress method attached ([material icon name](https://design.google.com/icons/)) |
 | onPress | none | function | onPress method for link (optional) |
+| onLongPress | none | function | onLongPress method for link (optional) |
 | roundAvatar | false | boolean | make left avatar round |
 | subtitle | none | string | subtitle text (optional) |
 | subtitleContainerStyle | none | style (object) | provide styling for subtitle container |
@@ -440,6 +444,30 @@ render () {
 | rightTitle | none | string | provide a rightTitle to have a title show up on the right side of the button, will override any icon on the right |
 | rightTitleContainerStyle | flex: 1, alignItems: 'flex-end', justifyContent: 'center' | object (style) | style the outer container of the rightTitle text |
 | rightTitleStyle | marginRight: 5, color: '#bdc6cf' | object (style) | style the text of the rightTitle text |
+| label | none | react native component | add a label with your own styling by providing a label={<SomeComponent />} prop to ListItem |
+
+#### Badges
+![Badges](http://i.imgur.com/qvJgGF2.png)
+
+You can now easily add a badge to your List Item    
+
+| prop | default | type | description |
+| ---- | ---- | ----| ---- |
+| badge | none | object, accepts the following properties: value (string), badgeContainerStyle (object), badgeTextStyle (object). You can override the default badge by providing your own component with it's own styling by providing badge={{ element: <YourCustomElement /> }} | add a badge to the ListItem by using this prop |     
+
+Example badge usage
+```
+<ListItem
+  ...
+  badge={{ value: 3, badgeTextStyle: { color: 'orange' }, badgeContainerStyle: { marginTop: -20 } }}
+/>
+
+<ListItem 
+  ...
+  badge={{ element: <MyCustomElement> }}
+/>
+
+```
 
 
 ## SideMenu
@@ -545,6 +573,7 @@ import { SearchBar } from 'react-native-elements'
 | containerRef | none | ref | ref for TextInput conainer |
 | textInputRef | none | ref | ref for TextInput |
 | focus | none | function | call focus on the textinput(optional), eg `this.refs.someInputRef.focus()` |
+| underlineColorAndroid | transparent | string (color) | specify other than the default transparent underline color |
 
 
 ## Cross Platform Tab Bar
@@ -739,11 +768,11 @@ import { CheckBox } from 'react-native-elements'
 
 #### Checkbox props
 
-> This component uses FontAwesome icons out of the box. You can also specify one of the following types of icons by specifying an iconType prop: Zocial, Octicons, MaterialIcons, Ionicons, Foundation, EvilIcons, or Entypo
+> This component uses FontAwesome icons out of the box. You can also specify one of the following types of icons by specifying an iconType prop: Simple Line Icon, Zocial, Octicons, MaterialIcons, Ionicons, Foundation, EvilIcons, or Entypo
 
 | prop | default | type | description |
 | ---- | ---- | ----| ---- |
-| iconType | fontawesome | string | icon family, can be one of the following: zocial, octicon, material, ionicon, foundation, evilicon, entypo (required only if specifying an icon that is not from font-awesome) |
+| iconType | fontawesome | string | icon family, can be one of the following: simple-line-icon, zocial, octicon, material, ionicon, foundation, evilicon, entypo (required only if specifying an icon that is not from font-awesome) |
 | component | TouchableOpacity | React Native Component | specify React Native component for main button (optional) |
 | checked | false | boolean | flag for checking the icon (required) |
 | iconRight | false | boolean | moves icon to right of text (optional) |
@@ -752,6 +781,7 @@ import { CheckBox } from 'react-native-elements'
 | title | none | string | title of checkbox (required) |
 | containerStyle | none | object (style) | style of main container (optional) |
 | textStyle | none | object (style) | style of text (optional) |
+| onLongPress | none | function | onLongPress function for  checkbox (optional) |
 | onPress | none | function | onPress function for checkbox (required) |
 | checkedIcon | check-square-o | string | default checked icon ([Font Awesome Icon](http://fontawesome.io/icons/)) (optional) |
 | uncheckedIcon | square-o | string | default checked icon ([Font Awesome Icon](http://fontawesome.io/icons/)) (optional) |
