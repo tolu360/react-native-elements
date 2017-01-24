@@ -51,10 +51,12 @@ import {
 - [x] [Checkboxes](https://github.com/react-native-community/react-native-elements#checkboxes)
 - [x] [List Element](https://github.com/react-native-community/react-native-elements#lists)
 - [x] [Linked List Element](https://github.com/react-native-community/react-native-elements#lists)
-- [x] [Cross Platform Tab Bar](https://github.com/react-native-community/react-native-elements#cross-platform-tab-bar)
-- [x] HTML style headings (h1, h2, etc...)
+- [x] [Tab Bar Component](https://github.com/react-native-community/react-native-elements#tab-bar-component)
+- [x] [HTML style headings (h1, h2, etc...)](https://github.com/react-native-community/react-native-elements#html-style-headings)
 - [x] [Card component](https://github.com/react-native-community/react-native-elements#card)
 - [x] [Pricing Component](https://github.com/react-native-community/react-native-elements#pricing-component)
+- [x] [Grid Component](https://github.com/react-native-community/react-native-elements#grid-component)
+- [x] [Slider Component](https://github.com/react-native-community/react-native-elements#slider-component)
 
 ## Roadmap
 - [ ] Add radio buttons
@@ -62,9 +64,7 @@ import {
 - [ ] [Swipeable List Item component](https://github.com/jemise111/react-native-swipe-list-view)
 - [ ] Add icons to TextInputs
 - [ ] Profile Component `in progress`
-- [ ] Add grid component `in progress`
 - [ ] Custom Picker
-- [ ] Side Menu Improvements
 - [ ] Something you's like to see? Submit an [issue](https://github.com/dabit3/react-native-elements/issues) or a [pull request](https://github.com/dabit3/react-native-elements/pulls)
 
 ## Examples
@@ -98,7 +98,7 @@ To override the fontFamily in any element, simply provide a fontFamily prop:
 ## Buttons
 Buttons take a title and an optional [material icon name](https://design.google.com/icons/), as well as the props below.
 
-> You can override Material icons with one of the following: simple-line-icon, zocial, font-awesome, octicon, ionicon, foundation, evilicon, or entypo by providing an icon.type as a prop.
+> You can override Material icons with one of the following: material-community, simple-line-icon, zocial, font-awesome, octicon, ionicon, foundation, evilicon, or entypo by providing an icon.type as a prop.
 
 ![Buttons](http://i.imgur.com/CVf1xbr.png)
 
@@ -146,7 +146,7 @@ import { Button } from 'react-native-elements'
 | iconRight | false | boolean | moves icon to right of title |
 | onPress | none | function | onPress method (required) |
 | onLongPress | none | function | onLongPress method (optional) |
-| icon | {color: 'white'} | object {name: string, color: string, size: number, type: string (default is material, or choose one of simple-line-icon, zocial, font-awesome, octicon, ionicon, foundation, evilicon, or entypo), style: object(style)} | icon configuration (optional) |
+| icon | {color: 'white'} | object {name: string, color: string, size: number, type: string (default is material, or choose one of material-community, simple-line-icon, zocial, font-awesome, octicon, ionicon, foundation, evilicon, or entypo), style: object(style)} | icon configuration (optional) |
 | backgroundColor | #397af8 | string (color) | background color of button (optional) |
 | borderRadius | none | number | adds border radius to card (optional) |
 | color | white | string(color) | font color (optional) |
@@ -242,7 +242,7 @@ import { SocialIcon } from 'react-native-elements'
 
 Icons take the name of a [material icon](https://design.google.com/icons/) as a prop.
 
-> You can override Material icons with one of the following: [font-awesome](http://fontawesome.io/icons/), [octicon](https://octicons.github.com/), [ionicon](http://ionicons.com/), [foundation](http://zurb.com/playground/foundation-icon-fonts-3), [evilicon](http://evil-icons.io/), [simple line icons](http://simplelineicons.com/), [zocial](http://weloveiconfonts.com/), or [entypo](http://www.entypo.com/) by providing a type prop.
+> You can override Material icons with one of the following: [material-community](https://materialdesignicons.com/), [font-awesome](http://fontawesome.io/icons/), [octicon](https://octicons.github.com/), [ionicon](http://ionicons.com/), [foundation](http://zurb.com/playground/foundation-icon-fonts-3), [evilicon](http://evil-icons.io/), [simple-line-icon](http://simplelineicons.com/), [zocial](http://weloveiconfonts.com/), or [entypo](http://www.entypo.com/) by providing a type prop.
 
 > Hint: use **reverse** to make your icon look like a button
 
@@ -284,7 +284,7 @@ import { Icon } from 'react-native-elements'
 | prop | default | type | description |
 | ---- | ---- | ----| ---- |
 | name | none | string | name of icon (required) |
-| type | material | string | type (defaults to material, options are `zocial, font-awesome, octicon, ionicon, foundation, evilicon, simple-line-icon, or entypo`) |
+| type | material | string | type (defaults to material, options are `material-community, zocial, font-awesome, octicon, ionicon, foundation, evilicon, simple-line-icon, or entypo`) |
 | size | 26 | number | size of icon (optional) |
 | color | black | string | color of icon (optional) |
 | iconStyle | inherited style | object (style) | additional styling to icon (optional) |
@@ -411,6 +411,47 @@ render () {
 
 ```
 
+#### ListItem implemented with custom View for Subtitle
+
+```js
+import { List, ListItem } from 'react-native-elements'
+
+render () {
+  return (
+    <List>
+      <ListItem
+        roundAvatar
+        title='Limited supply! Its like digital gold!'
+        subtitle={
+          <View style={styles.subtitleView}>
+            <Image source={require('../images/rating.png')} style={styles.ratingImage}/>
+            <Text style={styles.ratingText}>5 months ago</Text>
+          </View>
+        }
+        avatar={require('../images/avatar1.jpg')}
+      />
+    </List>
+  )
+}
+
+styles = StyleSheet.create({
+  subtitleView: {
+    flexDirection: 'row',
+    paddingLeft: 10,
+    paddingTop: 5
+  },
+  ratingImage: {
+    height: 19.21,
+    width: 100
+  },
+  ratingText: {
+    paddingLeft: 10,
+    color: 'grey'
+  }
+})
+
+```
+
 #### List Props
 
 | prop | default | type | description |
@@ -433,7 +474,7 @@ render () {
 | onPress | none | function | onPress method for link (optional) |
 | onLongPress | none | function | onLongPress method for link (optional) |
 | roundAvatar | false | boolean | make left avatar round |
-| subtitle | none | string | subtitle text (optional) |
+| subtitle | none | string or object | subtitle text or custom view (optional) |
 | subtitleContainerStyle | none | style (object) | provide styling for subtitle container |
 | subtitleStyle | none | object (style) | additional subtitle styling (optional ) |
 | title | none | string | main title for list item (required) |
@@ -462,7 +503,7 @@ Example badge usage
   badge={{ value: 3, badgeTextStyle: { color: 'orange' }, badgeContainerStyle: { marginTop: -20 } }}
 />
 
-<ListItem 
+<ListItem
   ...
   badge={{ element: <MyCustomElement> }}
 />
@@ -474,44 +515,50 @@ Example badge usage
 
 ![Side Menu](http://i.imgur.com/cjIcRl6.gif)
 
+> This component implements [react-native-side-menu](https://github.com/react-native-community/react-native-side-menu) which is part of the [react-native-community](https://github.com/react-native-community).
+
 ```js
 import { SideMenu, List, ListItem } from 'react-native-elements'
 
 constructor () {
   super()
-  this.state = { toggled: false }
+  this.state = {
+    isOpen: false
+  }
+  this.toggleSideMenu = this.toggleSideMenu.bind(this)
 }
 
 toggleSideMenu () {
   this.setState({
-    toggled: !this.state.toggled
+    isOpen: !this.state.isOpen
   })
 }
 
 render () {
-  // SideMenu takes a React Native element as a prop for the actual Side Menu
   const MenuComponent = (
     <View style={{flex: 1, backgroundColor: '#ededed', paddingTop: 50}}>
       <List containerStyle={{marginBottom: 20}}>
       {
-        list.map((item, i) => (
+        list.map((l, i) => (
           <ListItem
             roundAvatar
-            onPress={() => console.log('something')}
-            avatar={{uri:item.avatar_url}}
+            onPress={() => console.log('Pressed')}
+            avatar={l.avatar_url}
             key={i}
-            title={item.name}
-            subtitle={item.subtitle} />
+            title={l.name}
+            subtitle={l.subtitle}
+          />
         ))
       }
       </List>
     </View>
   )
+
   return (
     <SideMenu
-      MenuComponent={MenuComponent}
-      toggled={this.state.toggled}>
-      <App />
+      isOpen={this.state.isOpen}
+      menu={MenuComponent}>
+      <App toggleSideMenu={this.toggleSideMenu.bind(this)} />
     </SideMenu>
   )
 }
@@ -522,13 +569,23 @@ render () {
 
 | prop | default | type | description |
 | ---- | ---- | ----| ---- |
-| toggled | false | boolean | toggles side menu when true (required) |
-| toggledContainerStyle | none | object (style) | toggled state menu styling |
-| easing | Easing.inout | Easing method | specifies different easing method (optional) |
-| duration | 250 | animation length | specifies length of animation (optional) |
-| menuWidth | window width - 80 | number | the width and offset of the menu (optional) |
-| MenuComponent | none | React Native Component | the actual side menu component you would like to use (required) |
-| children | none | React Native Component | wrap RNSideMenu around the component you would like to animate (required)  |
+| menu | inherited | React.Component | Menu component |
+| isOpen |false | Boolean | Props driven control over menu open state |
+| openMenuOffset | 2/3 of device screen width | Number | Content view left margin if menu is opened |
+| hiddenMenuOffset | none | Number | Content view left margin if menu is hidden |
+| edgeHitWidth | none | Number | Edge distance on content view to open side menu, defaults to 60 |
+| toleranceX | none | Number | X axis tolerance |
+| toleranceY | none | Number | Y axis tolerance |
+| disableGestures | false | Bool | Disable whether the menu can be opened with gestures or not |
+| onStartShould <br /> SetResponderCapture | none | Function | Function that accepts event as an argument and specify if side-menu should react on the touch or not. Check https://facebook.github.io/react-native/docs/gesture-responder-system.html for more details |
+| onChange | none | Function | Callback on menu open/close. Is passed isOpen as an argument |
+| onMove | none | Function | Callback on menu move. Is passed left as an argument |
+| menuPosition | left | String | either 'left' or 'right' |
+| animationFunction | none | (Function -> Object) | Function that accept 2 arguments (prop, value) and return an object: <br /> - `prop` you should use at the place you specify parameter to animate <br /> - `value` you should use to specify the final value of prop |
+| animationStyle | none | (Function -> Object) | Function that accept 1 argument (value) and return an object: <br /> - `value` you should use at the place you need current value of animated parameter (left offset of content view) |
+| bounceBackOnOverdraw | true | boolean | when true, content view will bounce back to openMenuOffset when dragged further |
+
+> For issues or feature requests related to SideMenu component please click [here](https://github.com/react-native-community/react-native-side-menu/issues)
 
 ## Search Bar
 
@@ -576,15 +633,21 @@ import { SearchBar } from 'react-native-elements'
 | underlineColorAndroid | transparent | string (color) | specify other than the default transparent underline color |
 
 
-## Cross Platform Tab Bar
+## Tab Bar Component
 
-![Cross Platform Tab Bar](http://i.imgur.com/61lOjCy.png)
+![Tab Bar Component](http://i.imgur.com/61lOjCy.png)
 
 > This component implements the [react-native-tab-navigator](https://github.com/exponentjs/react-native-tab-navigator) from [Exponent](https://getexponent.com/). Check out [Exponent](https://getexponent.com/) if you haven't already!
 
 ```js
-
 import { Tabs, Tab, Icon } from 'react-native-elements'
+
+constructor() {
+  super()
+  this.state = {
+    selectedTab: 'profile',
+  }
+}
 
 changeTab (selectedTab) {
   this.setState({selectedTab})
@@ -594,31 +657,60 @@ const { selectedTab } = this.state
 
 <Tabs>
   <Tab
-    tabStyle={selectedTab !== 'home' && { styles.tabSelectedstyle }}
-    titleStyle={[styles.titleStyle]}
-    selectedTitleStyle={[styles.titleSelected]}
-    selected={selectedTab === 'home'}
-    title={selectedTab === 'home' ? 'HOME' : null}
-    renderIcon={() => <Icon name='whatshot' size={26} />}
-    renderSelectedIcon={() => <Icon name='whatshot' size={26} />}
-    onPress={() => this.changeTab('home')}>
-    <Home />
+    titleStyle={{fontWeight: 'bold', fontSize: 10}}
+    selectedTitleStyle={{marginTop: -1, marginBottom: 6}}
+    selected={selectedTab === 'feed'}
+    title={selectedTab === 'feed' ? 'FEED' : null}
+    renderIcon={() => <Icon containerStyle={{justifyContent: 'center', alignItems: 'center', marginTop: 12}} color={'#5e6977'} name='whatshot' size={33} />}
+    renderSelectedIcon={() => <Icon color={'#6296f9'} name='whatshot' size={30} />}
+    onPress={() => this.changeTab('feed')}>
+    <Feed />
   </Tab>
   <Tab
-    tabStyle={selectedTab !== 'about' && { styles.tabSelectedstyle }}
-    titleStyle={[styles.titleStyle]}
-    selectedTitleStyle={[styles.titleSelected]}
-    selected={selectedTab === 'about'}
-    title={selectedTab === 'about' ? 'ABOUT' : null}
-    renderIcon={() => <Icon name='important-devices' size={26} />}
-    renderSelectedIcon={() => <Icon name='important-devices' size={26} />}
-    onPress={() => this.changeTab('about')}>
-    <About />
+    titleStyle={{fontWeight: 'bold', fontSize: 10}}
+    selectedTitleStyle={{marginTop: -1, marginBottom: 6}}
+    selected={selectedTab === 'profile'}
+    title={selectedTab === 'profile' ? 'PROFILE' : null}
+    renderIcon={() => <Icon containerStyle={{justifyContent: 'center', alignItems: 'center', marginTop: 12}} color={'#5e6977'} name='person' size={33} />}
+    renderSelectedIcon={() => <Icon color={'#6296f9'} name='person' size={30} />}
+    onPress={() => this.changeTab('profile')}>
+    <Profile />
   </Tab>
   /* ... more tabs here */
 </Tabs>
 
-styles = { /* some custom styles /* }
+```
+
+### Hide Tab Bar
+
+```js
+constructor () {
+  super()
+  this.state = {
+    hideTabBar: true,
+  }
+}
+
+hideTabBar(value) {
+  this.setState({
+    hideTabBar: value
+  });
+}
+
+let tabBarStyle = {};
+let sceneStyle = {};
+if (this.state.hideTabBar) {
+  tabBarStyle.height = 0;
+  tabBarStyle.overflow = 'hidden';
+  sceneStyle.paddingBottom = 0;
+}
+
+<Tabs hidesTabTouch tabBarStyle={tabBarStyle} sceneStyle={sceneStyle}>
+  <Tab>
+    <LoginView hideTabBar={this.hideTabBar.bind(this)} />
+  </Tab>
+  /* ... tabs here */
+</Tabs>
 
 ```
 
@@ -646,6 +738,30 @@ styles = { /* some custom styles /* }
 | selected | none | boolean | return whether the item is selected |
 | onPress | none | function | onPress method for Item |
 | allowFontScaling | false | boolean | allow font scaling for title |
+
+> For issues or feature requests related to Tab Bar component please click [here](https://github.com/exponentjs/react-native-tab-navigator/issues)
+
+## HTML Style Headings
+
+![HTMLHeadings](https://i.imgur.com/xX3LCUY.png)
+
+```js
+<Text h1>Heading 1</Text>
+<Text h2>Heading 2</Text>
+<Text h3>Heading 3</Text>
+<Text h4>Heading 4</Text>
+```
+
+### Headings Props
+
+| prop | default | type | description |
+| ---- | ---- | ----| ---- |
+| h1 | none | boolean | font size 40 (optional) |
+| h2 | none | boolean | font size 34 (optional) |
+| h3 | none | boolean | font size 28 (optional) |
+| h4 | none | boolean | font size 22 (optional) |
+| fontFamily | none | string | font family name (optional) |
+| style | none | object (style) | add additional styling for Text (optional) |
 
 ## ButtonGroup
 
@@ -768,11 +884,11 @@ import { CheckBox } from 'react-native-elements'
 
 #### Checkbox props
 
-> This component uses FontAwesome icons out of the box. You can also specify one of the following types of icons by specifying an iconType prop: Simple Line Icon, Zocial, Octicons, MaterialIcons, Ionicons, Foundation, EvilIcons, or Entypo
+> This component uses FontAwesome icons out of the box. You can also specify one of the following types of icons by specifying an iconType prop: Simple Line Icon, Zocial, Octicons, MaterialIcons, MaterialCommunityIcons, Ionicons, Foundation, EvilIcons, or Entypo
 
 | prop | default | type | description |
 | ---- | ---- | ----| ---- |
-| iconType | fontawesome | string | icon family, can be one of the following: simple-line-icon, zocial, octicon, material, ionicon, foundation, evilicon, entypo (required only if specifying an icon that is not from font-awesome) |
+| iconType | fontawesome | string | icon family, can be one of the following: simple-line-icon, zocial, octicon, material, material-community, ionicon, foundation, evilicon, entypo (required only if specifying an icon that is not from font-awesome) |
 | component | TouchableOpacity | React Native Component | specify React Native component for main button (optional) |
 | checked | false | boolean | flag for checking the icon (required) |
 | iconRight | false | boolean | moves icon to right of text (optional) |
@@ -945,3 +1061,153 @@ import { PricingCard } from 'react-native-elements'
 | pricingFont | System font (font weight 700) (iOS), Roboto-Bold (android) | string | specify pricing font family |
 | infoFont | System font bold (iOS), Roboto-Bold (android) | string | specify pricing information font family |
 | buttonFont | System font (iOS), Roboto (android) | string | specify button font family |
+
+## Grid Component
+
+The Grid component provides two types of layouts, Row and Column. This provides you with an easy way to position your elements on screen without using flex directly.
+
+> This component was inspired from [react-native-easy-grid](https://github.com/GeekyAnts/react-native-easy-grid) by [GeekyAnts](https://github.com/GeekyAnts). Check out [NativeBase.io](http://nativebase.io/) if you haven't already!
+
+#### Row
+
+<img src="http://i.imgur.com/1e8W6j6.png" width="300" >
+
+```js
+import {Grid, Row} from 'react-native-elements';
+
+<Grid>
+  <Row></Row>
+  <Row></Row>
+</Grid>
+```
+
+#### Column
+
+<img src="http://i.imgur.com/MWIBLKk.png" width="300" >
+
+```js
+import {Grid, Col} from 'react-native-elements';
+
+<Grid>
+  <Col></Col>
+  <Col></Col>
+</Grid>
+```
+
+Creating nested layout
+
+<table width="100" height="100">
+  <tr>
+    <td rowspan="2" width="50">1</td>
+    <td width="50" height="50">2</td>
+  </tr>
+  <tr>
+    <td>3</td>
+  </tr>
+</table>
+
+<img src="http://i.imgur.com/PZ4vR6z.png" width="300" >
+
+```js
+import {Grid, Col, Row} from 'react-native-elements';
+
+<Grid>
+  <Col></Col>
+  <Col>
+    <Row></Row>
+    <Row></Row>
+  </Col>
+</Grid>
+```
+
+#### Using the size prop
+
+A ratio can be passed to the Size Prop
+
+<img src="https://i.imgur.com/xYDQ3XV.png" width="300" >
+
+```js
+<Grid>
+  <Row size={3}></Row>
+  <Row size={1}></Row>
+</Grid>
+```
+
+<img src="http://i.imgur.com/34nfZtP.png" width="300" >
+
+```js
+<Grid>
+  <Col size={75}></Col>
+  <Col size={25}></Col>
+</Grid>
+```
+
+#### GridComponent Props
+
+| prop | default | type | description |
+| ---- | ---- | ----| ---- |
+| style | none | object (style) | Outer grid styling (optional) |
+| onPress | none | function | onPress method (optional) |
+| activeOpacity | 1 | number | Opacity on pressing (optional) |
+
+#### ColComponent Props
+
+| props | default | type | description |
+| ---- | ---- | ---- | ---- |
+| style | none | object (style) | Styling for the outer column (optional) |
+| size | none | number | Size for column (optional) |
+| onPress | none | function | onPress method (optional) |
+| activeOpacity | 1 | number | Opacity on pressing (optional) |
+
+#### RowComponent Props
+
+| props | default | type | description |
+| ---- | ---- | ---- | ---- |
+| style | none | object (style) | Styling for the outer column (optional) |
+| size | none | number | Size for row (optional) |
+| onPress | none | function | onPress method (optional) |
+| activeOpacity | 1 | number | Opacity on pressing (optional) |
+
+
+## Slider Component
+
+![Slider Component](https://github.com/react-native-community/react-native-elements/blob/v0.9.0/src/slider/slider_screenshot.png)
+
+A pure JavaScript <Slider> component for react-native. It is a drop-in replacement for Slider.
+
+> This component is a forked implementation of  [react-native-slider](https://github.com/jeanregisser/react-native-slider). Also note that due to the nature of the platform, and the existence of breaking changes between React Native releases, this implementation currently only supports v0.26.0+
+
+```js
+import { Slider } from 'react-native-elements'
+
+<View style={{flex: 1, alignItems: 'stretch', justifyContent: 'center'}}>
+  <Slider
+    value={this.state.value}
+    onValueChange={(value) => this.setState({value})} />
+  <Text>Value: {this.state.value}</Text>
+</View>
+
+```
+## Slider Props
+
+prop                  | type     | optional | default                   | description
+--------------------- | -------- | -------- | ------------------------- | -----------
+value                 | number   | Yes      | 0                         | Initial value of the slider
+disabled              | bool     | Yes      | false                     | If true the user won't be able to move the slider
+minimumValue          | number   | Yes      | 0                         | Initial minimum value of the slider
+maximumValue          | number   | Yes      | 1                         | Initial maximum value of the slider
+step                  | number   | Yes      | 0                         | Step value of the slider. The value should be between 0 and maximumValue - minimumValue)
+minimumTrackTintColor | string   | Yes      | '#3f3f3f'                 | The color used for the track to the left of the button
+maximumTrackTintColor | string   | Yes      | '#b3b3b3'                 | The color used for the track to the right of the button
+thumbTintColor        | string   | Yes      | '#343434'                 | The color used for the thumb
+thumbTouchSize        | object   | Yes      | `{width: 40, height: 40}` | The size of the touch area that allows moving the thumb. The touch area has the same center as the visible thumb. This allows to have a visually small thumb while still allowing the user to move it easily.
+onValueChange         | function | Yes      |                           | Callback continuously called while the user is dragging the slider
+onSlidingStart        | function | Yes      |                           | Callback called when the user starts changing the value (e.g. when the slider is pressed)
+onSlidingComplete     | function | Yes      |                           | Callback called when the user finishes changing the value (e.g. when the slider is released)
+style                 | [style](http://facebook.github.io/react-native/docs/view.html#style)    | Yes      |                           | The style applied to the slider container
+trackStyle            | [style](http://facebook.github.io/react-native/docs/view.html#style)    | Yes      |                           | The style applied to the track
+thumbStyle            | [style](http://facebook.github.io/react-native/docs/view.html#style)    | Yes      |                           | The style applied to the thumb
+debugTouchArea        | bool     | Yes      | false                     | Set this to true to visually see the thumb touch rect in green.
+animateTransitions    | bool     | Yes      | false                     | Set to true if you want to use the default 'spring' animation
+animationType         | string   | Yes      | 'timing'                  | Set to 'spring' or 'timing' to use one of those two types of animations with the default [animation properties](https://facebook.github.io/react-native/docs/animations.html).
+animationConfig       | object   | Yes      | undefined                 | Used to configure the animation parameters.  These are the same parameters in the [Animated library](https://facebook.github.io/react-native/docs/animations.html).
