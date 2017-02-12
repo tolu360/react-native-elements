@@ -57,6 +57,7 @@ import {
 - [x] [Pricing Component](https://github.com/react-native-community/react-native-elements#pricing-component)
 - [x] [Grid Component](https://github.com/react-native-community/react-native-elements#grid-component)
 - [x] [Slider Component](https://github.com/react-native-community/react-native-elements#slider-component)
+- [x] [Tile Component](https://github.com/react-native-community/react-native-elements#tile-component)
 
 ## Roadmap
 - [ ] Add radio buttons
@@ -155,7 +156,7 @@ import { Button } from 'react-native-elements'
 | underlayColor | transparent | string(color) | underlay color for button press (optional)  |
 | raised | false | boolean | flag to add raised button styling (optional)  |
 | disabled | false | boolean | prop to indicate button is disabled (optional) |
-
+| disabledStyle | none | object (style) | disabled button styling (optional) |
 
 ## Social Icons & Buttons
 
@@ -470,15 +471,16 @@ styles = StyleSheet.create({
 | containerStyle | none | object (style) | additional main container styling (optional) |
 | hideChevron | false | boolean | set if you do not want a chevron (optional) |
 | leftIcon | none | object {name, color, style, type} (type defaults to material icons) | icon configuration for left icon (optional) |
-| rightIcon | {name: 'chevron-right'} | object {name, color, style, type} (type defaults to material icons) | right icon (optional), will only show up if there is an onPress method attached ([material icon name](https://design.google.com/icons/)) |
+| rightIcon | {name: 'chevron-right'} | object {name, color, style, type} (type defaults to material icons) | icon configuration for right icon (optional). Shows up unless hideChevron or rightTitle is set |
 | onPress | none | function | onPress method for link (optional) |
 | onLongPress | none | function | onLongPress method for link (optional) |
 | roundAvatar | false | boolean | make left avatar round |
 | subtitle | none | string or object | subtitle text or custom view (optional) |
 | subtitleContainerStyle | none | style (object) | provide styling for subtitle container |
 | subtitleStyle | none | object (style) | additional subtitle styling (optional ) |
-| title | none | string | main title for list item (required) |
+| title | none | string or object | main title for list item, can be text or custom view (required) |
 | titleStyle | none | object (style) | additional title styling (optional) |
+| titleContainerStyle | none | style (object) | provide styling for title container |
 | wrapperStyle | none | object (style) | additional wrapper styling (optional) |
 | underlayColor | white | string | define underlay color for TouchableHighlight (optional) |
 | fontFamily | HelevticaNeue (iOS), Roboto (android) | string | specify different font family |
@@ -631,6 +633,11 @@ import { SearchBar } from 'react-native-elements'
 | textInputRef | none | ref | ref for TextInput |
 | focus | none | function | call focus on the textinput(optional), eg `this.refs.someInputRef.focus()` |
 | underlineColorAndroid | transparent | string (color) | specify other than the default transparent underline color |
+| loadingIcon | { color: '#86939e' } | object {color (string), style (object)} | specify color, styling of the loading ActivityIndicator effect |
+| showLoadingIcon | false | boolean | show the loading ActivityIndicator effect |
+| placeholder | '' | string | set the placeholder text |
+| placeholderTextColor | '#86939e' | string | set the color of the placeholder text |
+| onChangeText | none | function | method to fire when text is changed |
 
 
 ## Tab Bar Component
@@ -915,8 +922,11 @@ import { FormLabel, FormInput } from 'react-native-elements'
 
 <FormLabel>Name</FormLabel>
 <FormInput onChangeText={someFunction}/>
-
+<FormValidationMessage>Error message</FormValidationMessage>
 ```
+
+#### FormValidationMessage example
+![FormValidationMessage example](http://i.imgur.com/IHVmL5d.png)
 
 #### FormInput props
 
@@ -931,6 +941,14 @@ import { FormLabel, FormInput } from 'react-native-elements'
 | focus | none | function | call focus on the textinput(optional), eg `this.refs.someInputRef.focus()` |
 
 #### FormLabel props
+
+| prop | default | type | description |
+| ---- | ---- | ----| ---- |
+| containerStyle | none | object (style) | additional label container style (optional) |
+| labelStyle | none | object (style) | additional label styling (optional) |
+| fontFamily | System font bold (iOS), Roboto-Bold (android) | string | specify different font family |
+
+#### FormValidationMessage props
 
 | prop | default | type | description |
 | ---- | ---- | ----| ---- |
@@ -1025,7 +1043,7 @@ import { Card, ListItem, Button } from 'react-native-elements'
 | dividerStyle | none | object (style) | additional divider styling (if title provided) (optional) |
 | fontFamily | System font bold (iOS), Roboto-Bold (android) | string | specify different font family |
 | imageStyle | inherited styling | object(style) | specify image styling if image is provided |
-| image | none | image uri or require pathh | add an image as the heading with the image prop (optional) |
+| image | none | image uri or require path | add an image as the heading with the image prop (optional) |
 
 
 ## Pricing Component
@@ -1211,3 +1229,64 @@ debugTouchArea        | bool     | Yes      | false                     | Set th
 animateTransitions    | bool     | Yes      | false                     | Set to true if you want to use the default 'spring' animation
 animationType         | string   | Yes      | 'timing'                  | Set to 'spring' or 'timing' to use one of those two types of animations with the default [animation properties](https://facebook.github.io/react-native/docs/animations.html).
 animationConfig       | object   | Yes      | undefined                 | Used to configure the animation parameters.  These are the same parameters in the [Animated library](https://facebook.github.io/react-native/docs/animations.html).
+
+## Tile Component
+
+A component with full size image and with text either inside the image or under the image along with customizable caption
+
+> This component was inspired from [Shoutem UI](https://github.com/shoutem/ui) by [Shoutem](https://github.com/shoutem). Check out [Shoutem](http://shoutem.github.io/) if you haven't already!
+
+#### Featured Tile
+![screen shot 2017-01-15 at 9 50 15 pm](https://cloud.githubusercontent.com/assets/6476108/21969491/beea4630-db6c-11e6-8913-7cc8813e35d6.png)
+
+```
+<Tile
+   imageSrc={{require: ('./img/path')}}
+   title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores dolore exercitationem"
+   featured
+   caption="Some Caption Text"
+/>
+```
+#### Featured Tile with Icon
+![screen shot 2017-01-15 at 9 50 22 pm](https://cloud.githubusercontent.com/assets/6476108/21969581/6004e408-db6d-11e6-9379-556a0c5e967a.png)
+
+```
+<Tile
+  imageSrc={{require: ('./img/path')}}
+  icon={{name: 'play-circle', type: 'font-awesome'}}
+  featured
+/>
+```
+#### Tile with Icon
+![screen shot 2017-01-15 at 9 50 34 pm](https://cloud.githubusercontent.com/assets/6476108/21969683/fce073f0-db6d-11e6-8d03-6e42c15627a9.png)
+
+```
+<Tile
+  imageSrc={{require: ('./img/path')}}
+  title="Lorem ipsum dolor sit amet, consectetur"
+  icon={{name: 'play-circle', type: 'font-awesome'}}  // optional
+>
+  <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+    <Text>Caption</Text>
+    <Text>Caption</Text>
+  </View>
+</Tile>
+```
+### Tile Props
+
+| prop | default | type | description |
+| ---- | ---- | ----| ---- |
+| icon | none | object {name: string, color: string, size: number, type: string (default is material, or choose one of material-community, simple-line-icon, zocial, font-awesome, octicon, ionicon, foundation, evilicon, or entypo), style: object(style)} | Icon Component Props (optional) |
+| title | none | string | Text inside the tile (optional) |
+| titleStyle | none | object (style) | Styling for the title (optional) |
+| caption | none | string | Text inside the tilt when tile is featured
+| captionStyle | none | object (style) | Styling for the caption (optional) |
+| featured | false | boolean | Changes the look of the tile (optional) |
+| containerStyle | none | object (style) | Styling for the outer tile container (optional) |
+| imageSrc | none | object (image) | Source for the image (required) |
+| imageContainerStyle | none | object (style) | Styling for the image (optional) |
+| onPress | none | function (event) | Function to call when tile is pressed (optional) |
+| activeOpacity | 0.2 | number | Number passed to control opacity on press (optional) |
+| contentContainerStyling | none | object (style) | Styling for bottom container when not featured tile (optional) |
+| width | Device Width | number | Width for the tile (optional) |
+| height | Device Width * 0.8 | number | Height for the tile |
